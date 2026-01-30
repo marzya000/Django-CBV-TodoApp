@@ -1,0 +1,19 @@
+{% extends "todo/base.html" %}
+{% block title %}{% if view.object %} Edit Task{% else %}  Create New Task{% endif%} {% endblock %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">{% if view.object %} Edit Task{% else %}  Create New Task{% endif%}</h4>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div class="mb-3">
+        {{ form.title.label_tag }} {{ form.title }}
+        <div class="text-danger small">{{ form.title.errors }}</div>
+      </div>
+      <button class="btn btn-success">Save</button>
+      <a class="btn btn-secondary" href="{% url 'todo:task_list' %}">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

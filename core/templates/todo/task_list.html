@@ -1,0 +1,44 @@
+{% extends "todo/base.html" %}
+{% block title %}Tasks List{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title"> Tasks</h4>
+    {% if tasks %}
+      <ul class="list-group mt-3">
+        {% for task in tasks %}
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div>
+              {{ task.title }}
+            </div>
+            <div class="ms-3 text-end">
+              {% if task.complete %}
+                <span class="badge bg-success">Done</span>
+              {% else %}
+                <span class="badge bg-warning">Waiting</span>
+              {% endif %}
+              <div class="mt-1">
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'todo:task_update' task.id %}">Edit</a>
+                <form method="post" action="{% url 'todo:task_complete' task.id %}" class="d-inline">
+                  {% csrf_token %}
+                  <button type="submit"
+                      class="btn btn-sm {% if task.complete %}btn-outline-warning{% else %}btn-outline-success{% endif %}">
+                    {% if task.complete %}
+                      Mark as Waiting
+                    {% else %}
+                      Complete
+                    {% endif %}
+                  </button>
+                </form>
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'todo:task_delete' task.id %}">Delete</a>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted mt-3">there is no task. <a href="{% url 'todo:task_create' %}">Create the first task</a></p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
