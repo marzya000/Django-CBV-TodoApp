@@ -8,9 +8,9 @@
   
 </head>
 <body> 
-   
-    <h2>Logged Out</h2>
     {% if not request.is_authenticated %}
+    <h2>Logged Out</h2>
+    
     <a href="{% url 'login' %}">Log In</a>
     <br>
     <a href="{% url 'signup' %}">SignUp</a>
