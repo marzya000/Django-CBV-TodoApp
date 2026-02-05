@@ -42,7 +42,7 @@ class TaskUpdate(LoginRequiredMixin,UpdateView):
 class TaskComplete(LoginRequiredMixin, View):
     model = Task
     success_url = reverse_lazy('todo:task_list')
-
+    
     def post(self, request, *args, **kwargs):
         task = get_object_or_404(Task, id=kwargs['pk'], user=request.user)
         task.complete = not task.complete
@@ -53,7 +53,6 @@ class TaskComplete(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         messages.warning(request, "You cannot access this URL directly.")
         return redirect('todo:task_list')
-
 
 class TaskDelete(LoginRequiredMixin,DeleteView):
     model = Task

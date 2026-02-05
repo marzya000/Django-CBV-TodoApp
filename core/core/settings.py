@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
 
 
-
+##SECRET_KEY = 'django-insecure-qmrb=el%h$5m+_v^=5tj^@+ilot6=qff1o(0)417)5m1saf1=v'
 
 
 
@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'todo',
+    'rest_framework',
+    'django_filters',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -142,7 +145,15 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL='todo:task_list'
-
 # user manager config
 AUTH_USER_MODEL = 'accounts.User'
+
+# redirect after user login
+LOGIN_REDIRECT_URL='todo:task_list'
+
+
+# restframework settings
+
+REST_FRAMEWORK = { 
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+     }
