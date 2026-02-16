@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset='utf-8'>
-   
+    
     <title>Register</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-
+    
 </head>
 <body>
     <div class="container py-5">
@@ -20,6 +20,7 @@
         <a href="{% url 'login' %}">Login</a>
         {% else %}
         <p>You are already logged in.</p>
+        <p>{{request.user.email}}</p>
         <a href="{% url 'logout' %}">Log Out</a>
         {% endif %}
     </div>

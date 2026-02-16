@@ -47,6 +47,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'todo',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
+    'drf_yasg',
+    'rest_framework_simplejwt',
+    'mail_templated',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -142,7 +149,49 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL='todo:task_list'
 
 # user manager config
 AUTH_USER_MODEL = 'accounts.User'
+
+
+# redirect url after user login
+LOGIN_REDIRECT_URL='todo:task_list'
+
+# restframework settings
+
+REST_FRAMEWORK = { 
+       
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),          
+    }
+
+
+
+# email configuration
+#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'smtp4dev'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 25
+
+
+
+# JWT authentication settings
+# Leeway is added to handle possible clock skew between different systems
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "LEEWAY": 30,
+}
+    
+
+
+

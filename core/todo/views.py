@@ -38,6 +38,8 @@ class TaskUpdate(LoginRequiredMixin,UpdateView):
 
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user)
+    
+    
 
 class TaskComplete(LoginRequiredMixin, View):
     model = Task
@@ -53,6 +55,7 @@ class TaskComplete(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         messages.warning(request, "You cannot access this URL directly.")
         return redirect('todo:task_list')
+
 
 
 class TaskDelete(LoginRequiredMixin,DeleteView):
