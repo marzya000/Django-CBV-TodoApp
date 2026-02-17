@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0002_profile'),
+        ("accounts", "0002_profile"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='username',
-            field=models.CharField(default='guest', max_length=150, unique=True),
+            model_name="user",
+            name="username",
+            field=models.CharField(default="guest", max_length=150, unique=True),
             preserve_default=False,
         ),
     ]
