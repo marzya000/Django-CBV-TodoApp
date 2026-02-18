@@ -42,16 +42,21 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path("accounts/", include("django.contrib.auth.urls")),
-    path('accounts/signup',SignupView.as_view(),name='signup'),
+    path("accounts/", include("accounts.urls")),
+    path('accounts/signup/',SignupView.as_view(),name='signup'),
     path('accounts/login/',views.LoginView.as_view(),name='login'),
-    path('accounts/logout/',views.LogoutView.as_view(),name='logout'),    
+    path('accounts/logout/',views.LogoutView.as_view(),name='logout'), 
+    path('accounts/password_change/',views.PasswordChangeView.as_view(),name='password_change'),
+    path('accounts/password_change/done/',views.PasswordChangeDoneView.as_view(),name='password_change_done'),
+    path('accounts/password_reset/',views.PasswordResetView.as_view(),name='password_reset'),
+    path('accounts/password_reset/done',views.PasswordResetDoneView.as_view(),name='password_reset_done'),
+    path('accounts/reset/<uidb64>/<token>/',views.PasswordResetView.as_view(),name='password_reset_confirm'),
+    path('accounts/reset/done',views.PasswordResetConfirmView.as_view(),name='password_reset_complete'),
     path('',include('todo.urls')),
     path('api-docs/',include_docs_urls(title='api sample')),
     path('swagger/api.json', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-
 ]
 
 # serving static and media for development
