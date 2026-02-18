@@ -22,8 +22,15 @@ jobs:
 
     - name: Run migrate
       run: docker compose run --rm backend python manage.py migrate
-
     
+    - name: Lint code with flake8
+      run: docker compose run --rm backend flake8
 
+    - name: Check code format with black
+      run: docker compose run --rm backend black --check
+
+    - name: Run tests
+      run: docker compose run --rm backend pytest
+    
     - name : Cleanup
       run: docker compose down -v
