@@ -2,17 +2,15 @@
 <html>
 <head>
     <meta charset='utf-8'>
-    
     <title>Login</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    
 </head>
 <body>
     <div class="container py-5">
         {% if not request.user.is_authenticated %}
         <h1>Login</h1>
         <form method="POST">
-            {% csrf_token %}
+            {% csrf_token %}   
             {{form.as_p}}
             <button class="btn btn-primary" type="submit">Login</button>
         </form>
@@ -24,7 +22,6 @@
         <p>{{request.user.email}}</p>
         <a href="{% url 'logout' %}">Log Out</a>
         {% endif %}
-
     </div>
 </body>
 </html>

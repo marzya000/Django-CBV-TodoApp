@@ -17,7 +17,6 @@ class UserManager(BaseUserManager):
         Creates and saves a User with the given username, email
         and password and extra data.
         """
-
         if not email:
             raise ValueError(_("the Email must be set"))
         user = self.normalize_email(email)

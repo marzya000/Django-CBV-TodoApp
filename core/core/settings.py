@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'drf_yasg',
+
 ]
 
 MIDDLEWARE = [
@@ -150,6 +151,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # redirect after user login
 LOGIN_REDIRECT_URL='todo:task_list'
+
 
 
 # restframework settings

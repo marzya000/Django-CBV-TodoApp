@@ -1,0 +1,29 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ "dev" ]
+  pull_request:
+    branches: [ "dev" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build containers
+      run: docker compose build
+      
+    - name: Run makemigrations
+      run: docker compose run --rm backend python manage.py makemigrations
+
+    - name: Run migrate
+      run: docker compose run --rm backend python manage.py migrate
+
+    
+
+    - name : Cleanup
+      run: docker compose down -v
