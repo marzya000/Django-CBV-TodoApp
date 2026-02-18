@@ -20,6 +20,7 @@
         <a href="{% url 'login' %}">Login</a>
         {% else %}
         <p>You are already logged in.</p>
+        <p>{{request.user.email}}</p>
         <a href="{% url 'logout' %}">Log Out</a>
         {% endif %}
     </div>

@@ -1,5 +1,5 @@
 from rest_framework.response import Response # type: ignore
-from rest_framework.permissions import IsAuthenticatedOrReadOnly ,IsAuthenticated# type: ignore
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated # type: ignore
 from .permissions import IsOwnerOrReadOnly
 from todo.models import Task
 from .serializers import TaskSerializer
