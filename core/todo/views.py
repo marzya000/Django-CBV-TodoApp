@@ -55,6 +55,7 @@ class TaskComplete(LoginRequiredMixin, View):
         return redirect('todo:task_list')
 
 
+
 class TaskDelete(LoginRequiredMixin,DeleteView):
     model = Task
     context_object_name = 'task'
