@@ -5,6 +5,7 @@ python-decouple==3.8
 Pillow==10.4.0
 coreapi
 coreschema
+
 # Third party modules
 markdown==3.4.3
 django-filter==23.2
@@ -16,4 +17,5 @@ djoser==2.2.1
 
 # email third party module
 django-mail-templated==2.6.5
+
 

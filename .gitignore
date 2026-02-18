@@ -159,3 +159,19 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+
+# I added
+
+# Cursor  
+# Cursor is an AI-powered code editor.
+# `.cursorignore` specifies files/directories to exclude from AI features 
+#  refer to https://docs.cursor.com/context/ignore-files
+.cursorignore
+.cursorindexingignore
+
+
+# I added
+
+.vscode/*
+

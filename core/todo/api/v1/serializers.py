@@ -6,7 +6,6 @@ class TaskSerializer(serializers.ModelSerializer):
     relative_url = serializers.URLField(source="get_absolute_api_url", read_only=True)
     absolute_url = serializers.SerializerMethodField()
 
-
     class Meta:
         model = Task
         fields = ['id','title','complete','relative_url','absolute_url']

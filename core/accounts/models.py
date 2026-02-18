@@ -17,7 +17,6 @@ class UserManager(BaseUserManager):
         Creates and saves a User with the given username, email
         and password and extra data.
         """
-
         if not email:
             raise ValueError(_("the Email must be set"))
         user = self.normalize_email(email)
@@ -49,7 +48,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     """
     Custom User Model for our app
     """
-    
+
     email = models.EmailField(max_length=255,unique=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
