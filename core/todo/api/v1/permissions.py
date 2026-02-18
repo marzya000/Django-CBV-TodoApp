@@ -1,4 +1,4 @@
-from rest_framework import permissions # type: ignore
+from rest_framework import permissions  # type: ignore
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     """
@@ -14,3 +14,4 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
         # Instance must have an attribute named `owner`.
         return obj.user == request.user
+

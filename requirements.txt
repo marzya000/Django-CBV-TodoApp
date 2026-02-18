@@ -19,3 +19,9 @@ djoser==2.2.1
 django-mail-templated==2.6.5
 
 
+# refactoring and tests
+black==25.11.0
+flake8==7.3.0
+pytest==9.0.1
+pytest-django==4.11.1
+

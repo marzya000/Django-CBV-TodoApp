@@ -5,9 +5,11 @@
         "marzya",
         "runserver",
         "stylesheet"
+
     ],
     "terminal.integrated.cwd": "C:\\Users\\LENOVO\\Desktop\\MyProject\\Django-CBV-TodoApp",
     "terminal.integrated.commandsToSkipShell": [
         ""
+
     ]
 }
