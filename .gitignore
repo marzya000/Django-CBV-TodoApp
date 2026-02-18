@@ -162,4 +162,16 @@ cython_debug/
 
 # I added
 
+
+# Cursor  
+# Cursor is an AI-powered code editor.
+# `.cursorignore` specifies files/directories to exclude from AI features 
+#  refer to https://docs.cursor.com/context/ignore-files
+.cursorignore
+.cursorindexingignore
+
+
+# I added
+
+
 .vscode/*
