@@ -14,5 +14,23 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Test Output
-      run: True
+    - name: Build containers
+      run: docker compose build
+      
+    - name: Run makemigrations
+      run: docker compose run --rm backend python manage.py makemigrations
+
+    - name: Run migrate
+      run: docker compose run --rm backend python manage.py migrate
+
+    - name: Lint code with flake8
+      run: docker compose run --rm backend flake8
+
+    - name: Check code format with black
+      run: docker compose run --rm backend black --check
+
+    - name: Run tests
+      run: docker compose run --rm backend pytest
+
+    - name : Cleanup
+      run: docker compose down -v
