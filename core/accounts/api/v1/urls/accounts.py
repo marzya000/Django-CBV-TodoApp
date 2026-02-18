@@ -1,4 +1,3 @@
-
 from django.urls import path
 from .. import views
 from rest_framework_simplejwt.views import (
@@ -65,4 +64,3 @@ urlpatterns = [
     path("jwt/refresh/", TokenRefreshView.as_view(), name="jwt-refresh"),
     path("jwt/verify/", TokenVerifyView.as_view(), name="jwt-verify"),
 ]
-

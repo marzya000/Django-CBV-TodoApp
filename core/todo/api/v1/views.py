@@ -1,4 +1,3 @@
-from rest_framework.response import Response  # type: ignore
 from rest_framework.permissions import IsAuthenticated  # type: ignore
 from rest_framework import viewsets  # type: ignore
 from django_filters.rest_framework import DjangoFilterBackend
@@ -24,4 +23,3 @@ class TaskModelViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-

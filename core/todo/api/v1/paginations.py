@@ -17,4 +17,3 @@ class DefaultPagination(PageNumberPagination):
                 "results": data,
             }
         )
-

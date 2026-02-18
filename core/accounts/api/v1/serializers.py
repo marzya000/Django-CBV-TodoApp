@@ -1,12 +1,10 @@
-
-from rest_framework import serializers # type: ignore
+from rest_framework import serializers  # type: ignore
 from ...models import User, Profile
 from django.contrib.auth import authenticate
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -54,7 +52,6 @@ class CustomAuthTokenSerializer(serializers.Serializer):
                 username=username,
                 password=password,
             )
-
 
             # The authenticate call simply returns None for is_active=False
             # users. (Assuming the default ModelBackend authentication
@@ -137,10 +134,8 @@ class ActivationResendSerializer(serializers.Serializer):
         return super().validate(attrs)
 
 
-
 class PasswordResetRequestSerializer(serializers.Serializer):
     email = serializers.EmailField()
-
 
 
 class PasswordResetConfirmSerializer(serializers.Serializer):
@@ -148,4 +143,3 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
 
     class Meta:
         ref_name = "CustomPasswordResetConfirm"
-

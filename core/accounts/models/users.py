@@ -16,9 +16,7 @@ class UserManager(BaseUserManager):
     for authentication instead of usernames.
     """
 
-
     def create_user(self, email, password, **extra_fields):
-
         """
         Creates and saves a User with the given username, email
         and password and extra data.
@@ -31,9 +29,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
     def create_superuser(self, email, password, **extra_fields):
-
         """
         Creates and saves a superuser with the given email
         and password and extra data.
@@ -47,7 +43,7 @@ class UserManager(BaseUserManager):
             raise ValueError(_("Superuser must have is_staff=True."))
         if extra_fields.get("is_superuser") is not True:
             raise ValueError(_("Superuser must have is_superuser=True."))
-        
+
         return self.create_user(email, password, **extra_fields)
 
 
@@ -72,4 +68,3 @@ class User(AbstractBaseUser, PermissionsMixin):  #
 
     def __str__(self):
         return self.email
-

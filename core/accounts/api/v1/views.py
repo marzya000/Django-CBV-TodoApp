@@ -32,6 +32,7 @@ from django.core.mail import send_mail
 
 User = get_user_model()
 
+
 class RegistrationApiView(generics.GenericAPIView):
     serializer_class = RegistrationSerializer
 
@@ -264,4 +265,3 @@ class PasswordResetConfirmView(generics.GenericAPIView):
             {"detail": "Password has been reset successfully"},
             status=status.HTTP_200_OK,
         )
-

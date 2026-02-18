@@ -1,5 +1,4 @@
-
-from rest_framework import serializers # type: ignore
+from rest_framework import serializers  # type: ignore
 from todo.models import Task
 
 
@@ -11,7 +10,6 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
         fields = ["id", "title", "complete", "relative_url", "absolute_url"]
         read_only_fields = ["user"]
-
 
     def get_absolute_url(self, obj):
         request = self.context.get("request")

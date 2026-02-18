@@ -26,7 +26,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY", default="test")
 
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool, default=True)
 
@@ -170,7 +169,6 @@ REST_FRAMEWORK = {
 }
 
 
-
 # email configuration
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -190,4 +188,3 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "LEEWAY": 30,
 }
-
