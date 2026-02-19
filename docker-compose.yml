@@ -29,7 +29,7 @@ services:
       # Add 127.0.0.1: prefix for localhost-only access (recommended for security)
       - '110:110'
     volumes:
-      # This is where smtp4dev stores the database..
+      # This is where smtp4dev stores the database...
         - smtp4dev-data:/smtp4dev
     environment:
     
