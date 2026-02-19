@@ -22,8 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = config("SECRET_KEY",default="test")
 
-SECRET_KEY = config("SECRET_KEY", default="test")
+
+
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -146,7 +148,6 @@ STATICFILES_DIRS = [
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # user manager config
@@ -154,7 +155,7 @@ AUTH_USER_MODEL = "accounts.User"
 
 
 # redirect url after user login
-LOGIN_REDIRECT_URL = "todo:task_list"
+LOGIN_REDIRECT_URL='todo:task_list'
 
 
 # restframework settings
@@ -168,6 +169,7 @@ REST_FRAMEWORK = {
     ]
 }
 
+## 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 
 # email configuration
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -179,8 +181,6 @@ EMAIL_HOST_PASSWORD = ""
 EMAIL_PORT = 25
 
 
-# JWT authentication settings
-# Leeway is added to handle possible clock skew between different systems
 from datetime import timedelta
 
 SIMPLE_JWT = {
