@@ -5,18 +5,18 @@ python-decouple==3.8
 Pillow==10.4.0
 coreapi
 coreschema
-
 # Third party modules
 markdown==3.4.3
 django-filter==23.2
 drf-yasg[validation]==1.21.11
 djangorestframework-simplejwt==5.3.1
 djoser==2.2.1
-
+django-cors-headers==4.9.0
 # deployment module
 
 # email third party module
 django-mail-templated==2.6.5
+
 
 
 # refactoring and tests
@@ -24,4 +24,11 @@ black==25.11.0
 flake8==7.3.0
 pytest==9.0.1
 pytest-django==4.11.1
+Faker==35.2.2
 
+# background process and cache
+
+celery==5.6.0
+redis==7.1.0
+
+django-celery-beat==2.8.1

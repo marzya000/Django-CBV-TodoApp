@@ -2,8 +2,9 @@ from django.urls import path, include
 from . import views
 
 app_name = "todo"
-urlpatterns = [
+urlpatterns = [   
     path("", views.TaskList.as_view(), name="task_list"),
+    path("task/api/", views.TaskListApi.as_view(), name="task_list_api"),
     path("task/create/", views.TaskCreate.as_view(), name="task_create"),
     path("task/update/<int:pk>/", views.TaskUpdate.as_view(), name="task_update"),
     path(

@@ -8,12 +8,12 @@
     
 </head>
 <body> 
-
     {% if not request.user.is_authenticated %}
     <h2>Logged Out</h2>
     <a href="{% url 'login' %}">Log In</a>
     <br>
     <a href="{% url 'signup' %}">SignUp</a>
     {% endif %}
+   
 </body>
 </html>

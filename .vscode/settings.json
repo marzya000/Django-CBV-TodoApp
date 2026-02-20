@@ -5,11 +5,5 @@
         "marzya",
         "runserver",
         "stylesheet"
-
-    ],
-    
-    "terminal.integrated.commandsToSkipShell": [
-        ""
-
     ]
 }
