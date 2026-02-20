@@ -14,8 +14,7 @@ urlpatterns = [
         views.RegistrationApiView.as_view(),
         name="registration",
     ),
-    #path("test-email", views.TestEmailSend.as_view(), name="test-email"),
-    
+    # path("test-email", views.TestEmailSend.as_view(), name="test-email"),
     # activation
     path(
         "activation/confirm/<str:token>/",

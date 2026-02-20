@@ -22,10 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY",default="test")
-
-
-
+SECRET_KEY = config("SECRET_KEY", default="test")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -155,7 +152,7 @@ AUTH_USER_MODEL = "accounts.User"
 
 
 # redirect url after user login
-LOGIN_REDIRECT_URL='todo:task_list'
+LOGIN_REDIRECT_URL = "todo:task_list"
 
 
 # restframework settings

@@ -8,19 +8,19 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ["id", "title", "complete","relative_url","absolute_url"]
+        fields = ["id", "title", "complete", "relative_url", "absolute_url"]
         read_only_fields = ["user"]
 
-    #def get_abs_url(self, obj):
-        #request = self.context.get("request") 
-        #return request.build_absolute_uri(obj.pk)
-    
+    # def get_abs_url(self, obj):
+    # request = self.context.get("request")
+    # return request.build_absolute_uri(obj.pk)
+
     def get_absolute_url(self, obj):
         request = self.context.get("request")
         if request:
             return request.build_absolute_uri(obj.get_absolute_api_url())
         return None
-        
+
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         request = self.context.get("request")
