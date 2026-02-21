@@ -22,10 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY",default="test")
-
-
-
+SECRET_KEY = config("SECRET_KEY", default="test")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -56,7 +53,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "mail_templated",
     "djoser",
-    "corsheaders",   
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -157,7 +154,7 @@ AUTH_USER_MODEL = "accounts.User"
 
 
 # redirect url after user login
-LOGIN_REDIRECT_URL='todo:task_list'
+LOGIN_REDIRECT_URL = "todo:task_list"
 
 
 # restframework settings
@@ -191,20 +188,18 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "LEEWAY": 30,
-
 }
-
 
 
 CORS_ALLOW_HEADERS = ["*"]
 CORS_ALLOW_METHODS = ["*"]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:5500',
+    "http://127.0.0.1:5500",
 ]
 
 # celery configs
-CELERY_BROKER_URL = 'redis://redis_todoapp:6379/2'
+CELERY_BROKER_URL = "redis://redis_todoapp:6379/2"
 
 # caching configs
 
@@ -214,6 +209,6 @@ CACHES = {
         "LOCATION": "redis://redis:6379/4",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
+        },
     }
 }
