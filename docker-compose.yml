@@ -1,5 +1,12 @@
 
 services:
+  redis:
+    container_name: redis_todoapp
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
   backend:
     build: .
     container_name: todo_app
@@ -11,7 +18,18 @@ services:
     environment:
       - SECRET_KEY=test
       - DEBUG=True
-     
+    depends_on:
+      - redis
+
+  worker:
+    build: .
+    command: celery -A core worker --loglevel=info
+    volumes:
+      - ./core:/app
+    depends_on:
+      - redis
+      - backend
+  
   smtp4dev:
     image: rnwood/smtp4dev:v3
     restart: always
@@ -29,7 +47,7 @@ services:
       # Add 127.0.0.1: prefix for localhost-only access (recommended for security)
       - '110:110'
     volumes:
-      # This is where smtp4dev stores the database...
+      # This is where smtp4dev stores the database..
         - smtp4dev-data:/smtp4dev
     environment:
     
@@ -37,6 +55,22 @@ services:
 
       #Specifies the server hostname. Used in auto-generated TLS certificate if enabled.
       - ServerOptions__HostName=smtp4dev
+
+  #master:
+    #image: locustio/locust
+    #profiles: ["load-test"]
+    #ports:
+     #- "8089:8089"
+    #volumes:
+      #- ./core/locust:/mnt/locust
+    #command: -f /mnt/locust/locustfile.py --master -H http://backend:8000
+  
+  #worker:
+    #image: locustio/locust
+    #profiles: ["load-test"]
+    #volumes:
+      #- ./core/locust:/mnt/locust
+    #command: -f /mnt/locust/locustfile.py --worker --master-host master
 
 volumes:
   smtp4dev-data:

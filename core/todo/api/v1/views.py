@@ -1,4 +1,5 @@
-from rest_framework.permissions import IsAuthenticated  # type: ignore
+# from rest_framework.response import Response  # type: ignore
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated  # type: ignore
 from rest_framework import viewsets  # type: ignore
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
@@ -9,8 +10,9 @@ from .serializers import TaskSerializer
 
 
 class TaskModelViewSet(viewsets.ModelViewSet):
+    # queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    permission_classes = [IsOwnerOrReadOnly, IsAuthenticated]  #
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticated] # 
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ["complete"]
     search_fields = ["title"]

@@ -89,7 +89,6 @@ class ChangePasswordSerializer(serializers.Serializer):
     new_password1 = serializers.CharField(required=True)
 
     def validate(self, attrs):
-
         if attrs.get("new_password") != attrs.get("new_password1"):
             raise serializers.ValidationError({"detail": "passwords does not match"})
 
@@ -121,10 +120,10 @@ class ActivationResendSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         email = attrs.get("email")
+
         try:
             user_obj = User.objects.get(email=email)
         except User.DoesNotExist:
-
             raise serializers.ValidationError({"detail": "user does not exist"})
         if user_obj.is_verified:
             raise serializers.ValidationError(
