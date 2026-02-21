@@ -6,6 +6,6 @@ urlpatterns = [
     path('send-email/', views.send_email, name='send-email'),
     path('weather/<str:city>/', views.weather_view),
     path("api/v1/", include("accounts.api.v1.urls")),
-    #path('api/v2/', include('djoser.urls')),
+    #path('api/v2/', include('djoser.urls')),#
     #path('api/v2/', include('djoser.urls.jwt')),
 ]
