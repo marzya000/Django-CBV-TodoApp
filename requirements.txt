@@ -17,6 +17,8 @@ django-cors-headers==4.9.0
 # email third party module
 django-mail-templated==2.6.5
 
+#
+requests
 
 # refactoring and tests
 black==25.11.0

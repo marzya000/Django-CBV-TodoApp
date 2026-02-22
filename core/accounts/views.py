@@ -16,19 +16,19 @@ def send_email(request):
     return HttpResponse("<h1>Done Sending</h1>")
 
 
-@cache_page(60 * 20)
-def weather_view(request, city):
-    response = requests.get(
-        "https://api.openweathermap.org/data/2.5/weather",
-        params={
-            "q": city,
-            "appid": "399871d262777e04375a1aea5f67f442",
-            "units": "metric",
-            "lang": "fa",
-        },
-        timeout=5,
-    )
-    return JsonResponse(response.json())
+#@cache_page(60 * 20)
+#def weather_view(request, city):
+    #response = requests.get(
+        #"https://api.openweathermap.org/data/2.5/weather",
+        #params={
+            #"q": city,
+            #"appid": "399871d262777e04375a1aea5f67f442",
+            #"units": "metric",
+            #"lang": "fa",
+        #},
+        #timeout=5,
+    #)
+    #return JsonResponse(response.json())
 
 
 class SignupView(FormView):

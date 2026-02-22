@@ -12,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views import View
-
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -77,3 +77,8 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user)
+
+
+
+def weather_page(request):
+    return render(request, "todo/weather.html")

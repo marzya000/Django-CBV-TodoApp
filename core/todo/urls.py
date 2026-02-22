@@ -1,5 +1,6 @@
 from django.urls import path, include
 from . import views
+from .views import weather_page 
 
 app_name = "todo"
 urlpatterns = [
@@ -14,4 +15,5 @@ urlpatterns = [
     ),
     path("task/delete/<int:pk>/", views.TaskDelete.as_view(), name="task_delete"),
     path("api/v1/", include(("todo.api.v1.urls", "api-v1"), namespace="api-v1")),
+    path("weather-page/", weather_page, name="weather-page"),
 ]
