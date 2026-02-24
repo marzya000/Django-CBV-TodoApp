@@ -2,21 +2,46 @@ from rest_framework import serializers  # type: ignore
 from todo.models import Task
 
 
+SUPPORTED_CITIES = [
+    "Tehran",
+    "London",
+    "Paris",
+    "Berlin",
+    "Madrid",
+    "Rome",
+    "New York",
+    "Los Angeles",
+    "Toronto",
+    "Istanbul",
+    "Dubai",
+    "Tokyo",
+    "Seoul",
+    "Beijing",
+    "Moscow",
+    "Delhi",
+    "Sydney",
+    "Amsterdam",
+    "Stockholm",
+    "Vienna",
+]
+
+
 class TaskSerializer(serializers.ModelSerializer):
     relative_url = serializers.URLField(source="get_absolute_api_url", read_only=True)
     absolute_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Task
-        fields = ["id", "title", "complete", "relative_url", "absolute_url"]
+        fields = ["id", "title", "complete","relative_url","absolute_url"]
         read_only_fields = ["user"]
 
+    
     def get_absolute_url(self, obj):
         request = self.context.get("request")
         if request:
             return request.build_absolute_uri(obj.get_absolute_api_url())
         return None
-
+        
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         request = self.context.get("request")
@@ -26,3 +51,10 @@ class TaskSerializer(serializers.ModelSerializer):
                 rep.pop("relative_url", None)
                 rep.pop("absolute_url", None)
         return rep
+
+
+
+class WeatherSerializer(serializers.Serializer):
+    city = serializers.ChoiceField(
+        choices=SUPPORTED_CITIES, default=SUPPORTED_CITIES[0]
+    )

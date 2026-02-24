@@ -1,0 +1,111 @@
+
+services:
+  db:
+    image: postgres:14
+    restart: always
+    #environment:
+      #POSTGRES_DB: mydatabase
+      #POSTGRES_USER: mydbuser
+      #POSTGRES_PASSWORD: mydbpassword
+    env_file:
+      - .env.stage
+    ports:
+      - '5433:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
+
+  backend:
+    build: .
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./core:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+    #environment:
+      #- DB_NAME=mydatabase
+      #- DB_USER=mydbuser
+      #- DB_PASSWORD=mydbpassword
+      #- DB_HOST=db
+      #- DB_PORT=5432
+      #- SECRET_KEY=test
+      #- DEBUG=False
+    env_file:
+      - .env.stage
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health/ || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 30s  
+  celery-worker:
+    build: .
+    command: celery -A core worker --loglevel=info
+    restart: unless-stopped
+    volumes:
+      - ./core:/app
+    env_file:
+      - .env.stage
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  celery-beat:
+    build: .
+    command: celery -A core beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler  
+    restart: unless-stopped
+    volumes:
+      - ./core:/app
+    env_file:
+      - .env.stage
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  nginx:
+    image: nginx
+    restart: always
+    ports:
+      - "81:80"
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - static_volume:/home/app/static
+      - media_volume:/home/app/media
+    depends_on:
+      backend:
+        condition: service_healthy
+volumes:
+  static_volume:
+  media_volume:    
+  postgres_data:
+  redis_data:

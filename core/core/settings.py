@@ -22,8 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = config("SECRET_KEY",default="test")
 
-SECRET_KEY = config("SECRET_KEY", default="test")
+
+
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -54,11 +56,14 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "mail_templated",
     "djoser",
+    "corsheaders",
+    "django_celery_beat",   
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -92,10 +97,15 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("POSTGRES_DB"),
+        "USER": config("POSTGRES_USER"),
+        "PASSWORD": config("POSTGRES_PASSWORD"),
+        "HOST": config("POSTGRES_HOST", default="db"),
+        "PORT": config("POSTGRES_PORT", default=5432, cast=int),
     }
 }
+
 
 
 # Password validation
@@ -146,7 +156,6 @@ STATICFILES_DIRS = [
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # user manager config
@@ -154,12 +163,17 @@ AUTH_USER_MODEL = "accounts.User"
 
 
 # redirect url after user login
-LOGIN_REDIRECT_URL = "todo:task_list"
+LOGIN_REDIRECT_URL='todo:task_list'
 
 
 # restframework settings
 
 REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ],
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
@@ -168,6 +182,7 @@ REST_FRAMEWORK = {
     ]
 }
 
+## 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 
 # email configuration
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -187,4 +202,31 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "LEEWAY": 30,
+}
+    
+
+
+
+
+CORS_ALLOW_HEADERS = ["*"]
+CORS_ALLOW_METHODS = ["*"]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:5500',
+]
+
+# celery configs
+# 
+CELERY_BROKER_URL = "redis://redis:6379/1"
+
+# caching configs
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/2",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
 }

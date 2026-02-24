@@ -1,7 +1,6 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-
 from .serializers import (
     RegistrationSerializer,
     CustomAuthTokenSerializer,
@@ -12,10 +11,9 @@ from .serializers import (
     PasswordResetRequestSerializer,
     PasswordResetConfirmSerializer,
 )
-
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth import get_user_model
@@ -29,6 +27,7 @@ from django.conf import settings
 from jwt.exceptions import ExpiredSignatureError, InvalidSignatureError
 from datetime import datetime, timedelta, timezone
 from django.core.mail import send_mail
+
 
 User = get_user_model()
 
@@ -59,13 +58,11 @@ class RegistrationApiView(generics.GenericAPIView):
         refresh = RefreshToken.for_user(user)
         return str(refresh.access_token)
 
-
 # login with token
 class CustomObtainAuthToken(ObtainAuthToken):
     serializer_class = CustomAuthTokenSerializer
 
     def post(self, request, *args, **kwargs):
-
         serializer = self.serializer_class(
             data=request.data, context={"request": request}
         )
@@ -73,7 +70,6 @@ class CustomObtainAuthToken(ObtainAuthToken):
         user = serializer.validated_data["user"]
         token, created = Token.objects.get_or_create(user=user)
         return Response({"token": token.key, "user_id": user.pk, "email": user.email})
-
 
 # logout with token
 class CustomDiscardAuthToken(APIView):
@@ -84,13 +80,16 @@ class CustomDiscardAuthToken(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+
 # jwt create
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
 
+
 # change password
 class ChangePasswordApiView(generics.GenericAPIView):
+
     model = User
     permission_classes = [IsAuthenticated]
     serializer_class = ChangePasswordSerializer
@@ -118,7 +117,6 @@ class ChangePasswordApiView(generics.GenericAPIView):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 # profile
 class ProfileApiView(generics.RetrieveUpdateAPIView):
     serializer_class = ProfileSerializer
@@ -130,10 +128,10 @@ class ProfileApiView(generics.RetrieveUpdateAPIView):
         return obj
 
 
+
 # activation
 class ActivationApiView(APIView):
     permission_classes = [AllowAny]
-
     def get(self, request, token, *args, **kwargs):
         try:
             token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
@@ -158,8 +156,7 @@ class ActivationApiView(APIView):
             {"detail": "your account have been verified and activated successfully"}
         )
 
-
-# resend activation
+ # resend activation
 class ActivationResendApiView(generics.GenericAPIView):
     serializer_class = ActivationResendSerializer
 
@@ -183,6 +180,7 @@ class ActivationResendApiView(generics.GenericAPIView):
     def get_tokens_for_user(self, user):
         refresh = RefreshToken.for_user(user)
         return str(refresh.access_token)
+
 
 
 # password reset
@@ -224,8 +222,7 @@ class PasswordResetRequestView(generics.GenericAPIView):
             status=status.HTTP_200_OK,
         )
 
-
-# reset password confirm
+ # reset password confirm
 class PasswordResetConfirmView(generics.GenericAPIView):
     serializer_class = PasswordResetConfirmSerializer
 

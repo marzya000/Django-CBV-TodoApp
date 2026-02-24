@@ -3,8 +3,17 @@ from django.urls import reverse_lazy
 from django.contrib.auth import login
 from .forms import SignupForm
 from django.views.generic.edit import FormView
+from django.http import HttpResponse
+import time
+import requests
+from .tasks import sendEmail
+from django.http import HttpResponse,JsonResponse
+from django.views.decorators.cache import cache_page
 
 # Create your views here.
+
+
+
 
 
 class SignupView(FormView):

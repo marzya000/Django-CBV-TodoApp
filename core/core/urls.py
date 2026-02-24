@@ -25,6 +25,8 @@ from accounts.views import SignupView
 from rest_framework import permissions  # type: ignore
 from drf_yasg.views import get_schema_view  # type: ignore
 from drf_yasg import openapi  # type: ignore
+from django.http import HttpResponse 
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -42,6 +44,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("health/", lambda r: HttpResponse("ok")),
     path("api-auth/", include("rest_framework.urls")),
     path("accounts/", include("accounts.urls")),
     path("accounts/signup/", SignupView.as_view(), name="signup"),

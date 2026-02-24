@@ -1,3 +1,4 @@
+from django.urls import path
 from . import views
 from rest_framework.routers import DefaultRouter  # type: ignore
 
@@ -7,5 +8,7 @@ router = DefaultRouter()
 router.register("task", views.TaskModelViewSet, basename="task")
 
 
-urlpatterns = []
+urlpatterns = [
+    path("weather/", views.WeatherAPIView.as_view(), name="weather-api"),
+]
 urlpatterns += router.urls

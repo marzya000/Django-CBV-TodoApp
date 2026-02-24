@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    
+    <title>weather</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+</head>
+<body>
+    
+<select id="city-select">
+  <option value="Tehran">Tehran</option>
+  <option value="London">London</option>
+  <option value="Paris">Paris</option>
+  <option value="Berlin">Berlin</option>
+  <option value="Madrid">Madrid</option>
+  <option value="Rome">Rome</option>
+  <option value="New York">New York</option>
+  <option value="Los Angeles">Los Angeles</option>
+  <option value="Toronto">Toronto</option>
+  <option value="Istanbul">Istanbul</option>
+  <option value="Dubai">Dubai</option>
+  <option value="Tokyo">Tokyo</option>
+  <option value="Seoul">Seoul</option>
+  <option value="Beijing">Beijing</option>
+  <option value="Moscow">Moscow</option>
+  <option value="Delhi">Delhi</option>
+  <option value="Sydney">Sydney</option>
+  <option value="Amsterdam">Amsterdam</option>
+  <option value="Stockholm">Stockholm</option>
+  <option value="Vienna">Vienna</option>
+ 
+</select>
+<button id="get-weather">Show Weather</button>
+
+<div id="weather-box"></div>
+
+<script>
+document.getElementById("get-weather").onclick = function() {
+    const city = document.getElementById("city-select").value;
+    fetch(`/api/v1/weather/?city=${city}`)
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("weather-box").innerHTML =
+            `Temperature: ${data.data.temperature}°C - ${data.data.description}`;
+    });
+};
+</script>
+</body>
+</html>
