@@ -3,10 +3,7 @@ services:
   db:
     image: postgres:14
     restart: always
-    #environment:
-      #POSTGRES_DB: mydatabase
-      #POSTGRES_USER: mydbuser
-      #POSTGRES_PASSWORD: mydbpassword
+   
     env_file:
       - .env.stage
     ports:
@@ -43,14 +40,7 @@ services:
       - media_volume:/app/media
     ports:
       - "8002:8000"
-    #environment:
-      #- DB_NAME=mydatabase
-      #- DB_USER=mydbuser
-      #- DB_PASSWORD=mydbpassword
-      #- DB_HOST=db
-      #- DB_PORT=5432
-      #- SECRET_KEY=test
-      #- DEBUG=False
+  
     env_file:
       - .env.stage
     depends_on:
