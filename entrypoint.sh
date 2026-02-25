@@ -22,6 +22,12 @@ echo "Redis is ready!"
 echo "Applying Django migrations..."
 python manage.py migrate --noinput --fake-initial
 
+
+
+echo "Collecting static files..."
+python manage.py collectstatic --noinput
+
+
 echo "Starting gunicorn in background..."
 "$@" &  # command from docker-compose
 GUNICORN_PID=$!
@@ -44,4 +50,4 @@ else:
     sys.exit(1)
 END
 
-wait $GUNICORN_PID
+wait $GUNICORN_PID 

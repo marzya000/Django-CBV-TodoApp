@@ -1,5 +1,5 @@
 # from rest_framework.response import Response  # type: ignore
-from rest_framework.permissions import IsAuthenticated  # type: ignore
+from rest_framework.permissions import IsAuthenticated, AllowAny # type: ignore
 from rest_framework import viewsets  # type: ignore
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
